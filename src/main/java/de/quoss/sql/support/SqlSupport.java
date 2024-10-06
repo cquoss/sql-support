@@ -16,9 +16,10 @@ public class SqlSupport {
 
     private SqlSupport() {}
 
-    public static List<Map<String, Object>> execute(final String url, final String sql) throws SqlSupportException {
+    public static List<Map<String, Object>> execute(final String url, final String userName, final String password,
+            final String sql) throws SqlSupportException {
         final List<Map<String, Object>> result = new LinkedList<>();
-        try (final Connection connection = DriverManager.getConnection(url);
+        try (final Connection connection = DriverManager.getConnection(url, userName, password);
                 final Statement statement = connection.createStatement()) {
             if (statement.execute(sql)) {
                 try (final ResultSet resultSet = statement.getResultSet()) {
